@@ -1,0 +1,10 @@
+services:
+  rag-api:
+    build: .
+    ports:
+      - "8001:8000"        # → http://localhost:8001/docs
+    env_file:
+      - .env
+    volumes:
+      - ./downloads:/app/downloads   # persist PDF across restarts
+    restart: unless-stopped
