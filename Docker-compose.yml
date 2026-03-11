@@ -2,9 +2,12 @@ services:
   rag-api:
     build: .
     ports:
-      - "8001:8000"        # → http://localhost:8001/docs
+      - "8001:8000"
     env_file:
       - .env
     volumes:
-      - ./downloads:/app/downloads   # persist PDF across restarts
+      - ./downloads:/app/downloads
+                         #  ADD THIS LINE
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

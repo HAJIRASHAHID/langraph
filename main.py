@@ -15,7 +15,7 @@ from state import State
 ML_PDF_URL = "https://alexjungaalto.github.io/MLBasicsBook.pdf"
 
 
-# ── FastAPI App ───────────────────────────────────────────────────────────────
+# ── FastAPI App 
 app = FastAPI(
     title="ML Basics RAG API",
     description=(
@@ -26,7 +26,7 @@ app = FastAPI(
 )
 
 
-# ── Startup: runs once when container starts ──────────────────────────────────
+# ── Startup: runs once when container starts 
 @app.on_event("startup")
 def startup():
     print("=" * 55)
@@ -64,7 +64,7 @@ def startup():
     print("=" * 55)
 
 
-# ── Request / Response schemas ────────────────────────────────────────────────
+# ── Request / Response schemas
 class QuestionRequest(BaseModel):
     question: str
 
@@ -111,13 +111,13 @@ def ask(request: QuestionRequest):
     )
 
 
-# ── GET /health ───────────────────────────────────────────────────────────────
+# ── GET /health
 @app.get("/health", summary="Health check")
 def health():
     return {"status": "ok", "message": "ML RAG API is running"}
 
 
-# ── Local run (outside Docker) ────────────────────────────────────────────────
+# ── Local run (outside Docker) ─
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

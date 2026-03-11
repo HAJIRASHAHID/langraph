@@ -10,7 +10,7 @@ PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX   = os.getenv("PINECONE_INDEX_NAME", "ml-rag-index")
 
 
-# ── Step 1: Create embeddings from chunks ─────────────────────────────────────
+# ── Step 1: Create embeddings from chunks
 def create_embeddings(chunks: list, batch_size: int = 64):
     """
     Loads MiniLM locally, encodes all chunks in batches.
@@ -57,7 +57,7 @@ def init_pinecone(api_key: str, index_name: str):
         return None
 
 
-# ── Step 3: Upsert chunks + their vectors into Pinecone ───────────────────────
+# ── Step 3: Upsert chunks + their vectors into Pinecone
 def upsert_chunks(index, chunks: list, chunk_embeddings, batch_size: int = 50):
     """
     Uploads chunks to Pinecone in batches.
@@ -84,7 +84,7 @@ def upsert_chunks(index, chunks: list, chunk_embeddings, batch_size: int = 50):
     print("[retriever] Upsert complete.")
 
 
-# ── Step 4: Retrieve relevant chunks at query time ────────────────────────────
+# ── Step 4: Retrieve relevant chunks at query time 
 def retrieve_relevant_docs(question: str, embedding_model: SentenceTransformer, k: int = 3) -> list:
     """
     Embeds the user question → queries Pinecone → returns top-k text chunks.

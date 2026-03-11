@@ -12,3 +12,4 @@ python-dotenv==1.0.1
 pinecone==4.1.0
 numpy==1.26.4
 requests==2.32.2
+tavily-python==0.1.0

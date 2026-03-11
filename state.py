@@ -8,3 +8,4 @@ class State(TypedDict):
     documents: list       # Node: Retriever   → top-k chunks from Pinecone
     context:   str        # Node: Context Builder → combined prompt context
     answer:    str        # Node: Generator   → final LLM answer
+    web_results: str       # Node: results from tavily 
