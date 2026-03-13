@@ -87,25 +87,29 @@ def upsert_chunks(index, chunks: list, chunk_embeddings, batch_size: int = 50):
 # ── Step 4: Retrieve relevant chunks at query time 
 def retrieve_relevant_docs(question: str, embedding_model: SentenceTransformer, k: int = 3) -> list:
     """
-    Embeds the user question → queries Pinecone → returns top-k text chunks.
+    Embeds the question → queries Pinecone → returns top-k text chunks.
     """
-    pc    = Pinecone(api_key=PINECONE_API_KEY)
+    if embedding_model is None:
+        raise ValueError("[retriever] Embedding model not initialized!")
+
+    pc = Pinecone(api_key=PINECONE_API_KEY)
     index = pc.Index(PINECONE_INDEX)
 
-    # Embed the question using the same model used at ingestion
+    # Embed question
     question_vector = embedding_model.encode(
         [question],
         convert_to_numpy=True
     )[0].astype("float32").tolist()
 
-    # Search Pinecone for most similar chunks
+    # Query Pinecone
     results = index.query(
         vector=question_vector,
         top_k=k,
-        include_metadata=True   # get back the original text
+        include_metadata=True
     )
 
     # Extract text from metadata
     docs = [match["metadata"]["text"] for match in results["matches"]]
     print(f"[retriever] Retrieved {len(docs)} chunks for query.")
+
     return docs
