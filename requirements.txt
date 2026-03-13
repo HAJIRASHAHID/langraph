@@ -1,7 +1,7 @@
-fastapi==0.111.0
-uvicorn==0.29.0
-PyMuPDF==1.24.3
-langgraph==0.1.19
+fastapi==0.111.0   #web framework for building APIs
+uvicorn==0.29.0     #`ASGI server for running FastAPI applications
+PyMuPDF==1.24.3     #library for working with PDF files
+langgraph==0.1.19   #library for building knowledge graphs
 pydantic==2.7.1
 langchain==0.2.1
 langchain-core==0.2.22
@@ -13,3 +13,4 @@ pinecone==4.1.0
 numpy==1.26.4
 requests==2.32.2
 tavily-python==0.5.0
+grandalf==0.7
