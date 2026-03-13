@@ -23,7 +23,7 @@ def get_embedding_model():
 # ------------------------------------------------
 # Tool: Tavily Web Search
 # ------------------------------------------------
-@tool
+@tool  # decorator to make it a callable tool in LangGraph and LLMs ... but we will call it directly too
 def tavily_search_tool(query: str) -> str:
     """Search the web for information when the knowledge base is insufficient to answer the question."""
     client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
@@ -31,7 +31,7 @@ def tavily_search_tool(query: str) -> str:
     return "\n\n".join([r["content"] for r in results.get("results", [])])
 
 # LLM with tool bound — this is the ONLY LLM used
-llm_with_tools = llm.bind_tools([tavily_search_tool])
+llm_with_tools = llm.bind_tools([tavily_search_tool]) #bind tools tells the LLM which tools it can call, so it can decide when to call them based on the prompt and question
 
 # ------------------------------------------------
 # USER INPUT NODE
