@@ -13,9 +13,9 @@ from nodes import set_embedding_model
 from graph import rag_graph
 from state import State
 
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
-os.environ["LANGCHAIN_PROJECT"] = "langraph-rag"
+os.environ["LANGSMITH_TRACING_V2"] = "true"
+os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
+os.environ["LANGSMITH_PROJECT"] = "langraph-rag"
 
 ML_PDF_URL = "https://alexjungaalto.github.io/MLBasicsBook.pdf"
 
@@ -36,11 +36,11 @@ async def startup_event():
     print(" Starting ML RAG Pipeline...")
     print("=======================================================")
 
-    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY")) #initialize Pinecone client
     index = pc.Index(os.getenv("PINECONE_INDEX_NAME"))
 
     stats = index.describe_index_stats()
-    if stats.get("total_vector_count", 0) > 0:
+    if stats.get("total_vector_count", 0) > 0: # If Pinecone already has vectors, skip embedding creation to save time during development
         print("[main] Pinecone already contains vectors. Skipping embedding creation.")
         return
 
