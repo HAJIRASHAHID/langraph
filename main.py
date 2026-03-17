@@ -4,7 +4,8 @@ load_dotenv()
 import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from pinecone import Pinecone
+from fastapi.responses import FileResponse
+from pinecone import Pinecone, ServerlessSpec
 from utils import download_pdf, extract_text_from_pdf, chunk_text
 from retriever import upsert_chunks
 from sentence_transformers import SentenceTransformer
@@ -86,3 +87,10 @@ def ask(request: QuestionRequest):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+@app.get("/tracing")
+def get_tracing_graph():
+    graph_path = "/app/downloads/graph.png"  # absolute path inside Docker
+    if os.path.exists(graph_path):
+        return FileResponse(graph_path, media_type="image/png")
+    return {"error": "Graph not generated yet"}

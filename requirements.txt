@@ -9,8 +9,8 @@ langchain-community==0.2.1
 langchain-groq==0.1.4
 sentence-transformers==2.7.0
 python-dotenv==1.0.1
-pinecone==4.1.0
+pinecone-client==4.1.0
 numpy==1.26.4
 requests==2.32.2
 tavily-python==0.5.0
-grandalf==0.7
+grandalf==0.7.0 #library for graph visualization
