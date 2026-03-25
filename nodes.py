@@ -86,31 +86,7 @@ def context_builder_node(state: State) -> State:
 def generator_node(state: State) -> State:
     question = state["question"]
 
-    # ml_keywords = [
-    #     "machine learning",     not required simple way by prompt
-    #     "ml",
-    #     "gradient",
-    #     "neural",
-    #     "model",
-    #     "training",
-    #     "dataset",
-    #     "algorithm",
-    #     "loss",
-    #     "feature",
-    #     "classification",
-    #     "regression",
-    #     "supervised",
-    #     "unsupervised",
-    #     "deep learning",
-    #     "optimization",
-    #     "vector",
-    #     "matrix",
-    # ]
-
-    # question_lower = question.lower()
-    # is_ml_question = any(kw in question_lower for kw in ml_keywords)
-
-    # if is_ml_question:
+   #prevously i used ml raw data 
     # Extract only clean sentences from context, skip lines with math symbols
     raw_chunks = state.get("documents", [])
     clean_lines = []
@@ -136,15 +112,6 @@ def generator_node(state: State) -> State:
 
         Answer in clear, full sentences only."""
 
-    # else:
-    #     prompt = f"""You are a helpful assistant.
-
-    #     This question is NOT related to Machine Learning.
-    #     You MUST call the tavily_search_tool to search the web for the latest and most accurate answer.
-    #     Do NOT answer from memory or training data as it may be outdated.
-
-    #     Question:
-    #     {question}"""
 
     messages = [HumanMessage(content=prompt)]
 
